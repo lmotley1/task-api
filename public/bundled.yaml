@@ -59,6 +59,37 @@ paths:
                 $ref: '#/components/schemas/Task'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /tasks/{id}:
+    get:
+      '400':
+        description: Invalid ID parameter
+        content:
+          application/json:
+            schema:
+              $ref: ../schemas/ValidationError.yaml
+      '404':
+        description: Task not found
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/NotFoundError.yaml
+      summary: Get a task by Id
+      tags: '-Tasks'
+      parameters:
+        '-name': id
+        in: path
+        required: true
+        description: ID of the task to retrieve
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '200':
+          description: Task found Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
 components:
   schemas:
     Task:
